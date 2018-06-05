@@ -1,4 +1,12 @@
 # convert custom data to xml
+![GitHub release](https://img.shields.io/github/release/ajeetx/convert2xml.svg?style=for-the-badge) ![Maintenance](https://img.shields.io/maintenance/yes/2018.svg?style=for-the-badge)
+
+| ![GitHub Release Date](https://img.shields.io/github/release-date/ajeetx/convert2xml.svg?style=plastic) | ![Website](https://img.shields.io/website-stable-offline-green-red/http/ajeetx.github.io/convert2xml.svg?label=status&style=plastic)|[![Build Status](https://travis-ci.org/AJEETX/convert2xml.png?branch=master&style=for-the-badge)](https://travis-ci.org/AJEETX/convert2xml)
+|  --- | ---     | ---   |
+
+ [![.Net Framework](https://img.shields.io/badge/DotNet-4.5-blue.svg?style=plastic)](https://www.microsoft.com/en-au/download/details.aspx?id=42642) | ![GitHub language count](https://img.shields.io/github/languages/count/ajeetx/convert2xml.svg?style=plastic)| ![GitHub top language](https://img.shields.io/github/languages/top/ajeetx/convert2xml.svg) |![GitHub repo size in bytes](https://img.shields.io/github/repo-size/ajeetx/convert2xml.svg) 
+| ---          | ---        | ---      | ---       |
+
 
 > a simple console based system . converts custom data to xml format
 
@@ -118,3 +126,10 @@ Please run the application
     ```
     happy coding
     ```
+### Support or Contact
+
+Having any trouble? Check out our [documentation](https://github.com/AJEETX/ParkingCalculation.Demo/blob/master/README.md) or [contact support](mailto:ajeetkumar@email.com) and we’ll help you sort it out.
+
+|  Counter   | Contributor | Disclaimer
+| ---        | ---         | --- |
+|[ ![HitCount](http://hits.dwyl.io/ajeetx/convert2xml/projects/1.svg)](http://hits.dwyl.io/ajeetx/convert2xml/projects/1) | ![GitHub contributors](https://img.shields.io/github/contributors/ajeetx/convert2xml.svg?style=plastic)|![license](https://img.shields.io/github/license/ajeetx/ParkingCalculation.Demo.svg?style=plastic)
