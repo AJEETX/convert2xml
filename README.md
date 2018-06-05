@@ -132,4 +132,4 @@ Having any trouble? Check out our [documentation](https://github.com/AJEETX/Park
 
 |  Counter   | Contributor | Disclaimer
 | ---        | ---         | --- |
-|[ ![HitCount](http://hits.dwyl.io/ajeetx/convert2xml/projects/1.svg)](http://hits.dwyl.io/ajeetx/convert2xml/projects/1) | ![GitHub contributors](https://img.shields.io/github/contributors/ajeetx/convert2xml.svg?style=plastic)|![license](https://img.shields.io/github/license/ajeetx/ParkingCalculation.Demo.svg?style=plastic)
+|[ ![HitCount](http://hits.dwyl.io/ajeetx/convert2xml/projects/1.svg)](http://hits.dwyl.io/ajeetx/convert2xml/projects/1) | ![GitHub contributors](https://img.shields.io/github/contributors/ajeetx/convert2xml.svg?style=plastic)|![license](https://img.shields.io/github/license/ajeetx/convert2xml.svg?style=plastic)
