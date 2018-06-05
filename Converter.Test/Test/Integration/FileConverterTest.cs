@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Converter.Domain;
-using Moq;
 using Converter.Test.Data;
 
 namespace Converter.Test.Integration
@@ -13,25 +7,60 @@ namespace Converter.Test.Integration
     [TestClass]
     public class FileConverterIntegrationTest
     {
+        IPurchaseOrderLineGenerator _lineGenerator;
+        IPurchaseOrderGenerator _orderGenerator;
+        IFormatData _formatter;
+        IFileReader _reader;
+        IFileWriter _writer;
+        [TestInitialize]
+        public void Init()
+        {
+            _lineGenerator = new PurchaseOrderLineGenerator();
+            _orderGenerator = new PurchaseOrderGenerator(_lineGenerator);
+            _formatter = new FormatData(_orderGenerator);
+            _reader = new FileReader();
+            _writer = new FileWriter(_formatter);
+        }
+        [TestCleanup]
+        public void Clean()
+        {
+            _lineGenerator = null;
+            _orderGenerator = null;
+            _formatter = null;
+            _reader = null;
+            _writer = null;
+        }
         [TestMethod]
-        public void Integration_test_convert_specified_file_found_2_xml_successful()
+        public void Integration_test_convert_specified_file_found_2_xml_successful_returns_saved_file_name()
         {
             //given
-            var lineGenerator = new PurchaseOrderLineGenerator();
-            var orderGenerator = new PurchaseOrderGenerator(lineGenerator);
-            var formatter = new FormatData(orderGenerator);
-            var reader = new FileReader();
-            var writer = new FileWriter(formatter);
-            var converter = new FileConverter(reader, writer);
+            string fileName = TestData.GetFileNameSample();
+            string savedFileName =TestData.GetSavedFileName();
+            var converter = new FileConverter(_reader, _writer);
 
             //when
-            var result = converter.Convert(TestData.GetFileNameSample());
+            var result = converter.Convert(fileName);
 
             //then
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result,typeof(string));
-            Assert.IsFalse(result == "File Not found");
-            Assert.IsTrue(result == TestData.GetSavedFileName());
+            Assert.IsFalse(result == "Err");
+            Assert.IsTrue(result == savedFileName);
+        }
+        [TestMethod]
+        public void Integration_test_convert_specified_file_notfound_2_xml_return_err()
+        {
+            //given
+            string fileName = "";
+             var converter = new FileConverter(_reader, _writer);
+
+            //when
+            var result = converter.Convert(fileName);
+
+            //then
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(string));
+            Assert.IsTrue(result == "Err");
         }
     }
 }

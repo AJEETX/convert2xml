@@ -19,15 +19,18 @@ namespace Converter.Test.Unit
             //given
             var moqFileReader = new Mock<IFileReader>();
             var moqFileWriter = new Mock<IFileWriter>();
+            string fileNameSample = TestData.GetFileNameSample();
+            string fileDataSample = TestData.GetFileDataSample();
+            string savedFileName = TestData.GetSavedFileName();
 
-            moqFileReader.Setup(m => m.ReadFile(It.Is<string>(n=> n==TestData.GetFileNameSample()))).Returns(TestData.GetFileDataSample());
-            moqFileWriter.Setup(m => m.Write(It.Is<string>(d => d == TestData.GetFileDataSample()))).Returns(TestData.GetSavedFileName());
+            moqFileReader.Setup(m => m.ReadFile(It.Is<string>(n=> n==fileNameSample))).Returns(fileDataSample);
+            moqFileWriter.Setup(m => m.Write(It.Is<string>(d => d == fileDataSample))).Returns(savedFileName);
             var sut = new FileConverter(moqFileReader.Object, moqFileWriter.Object);
 
             //when
-            var result = sut.Convert(TestData.GetFileNameSample());
+            var result = sut.Convert(fileNameSample);
             //then
-            Assert.IsTrue(result == TestData.GetSavedFileName());
+            Assert.IsTrue(result == savedFileName);
         }
     }
 }

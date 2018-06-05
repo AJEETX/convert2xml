@@ -32,7 +32,7 @@ namespace Converter.Test.Integration
             //then
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(string));
-            Assert.IsFalse(result == "File Not found");
+            Assert.IsFalse(result == "Err");
             Assert.IsTrue(result == TestData.GetSavedFileName());
         }
     }

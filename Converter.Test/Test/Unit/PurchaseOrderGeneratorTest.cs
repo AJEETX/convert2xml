@@ -11,17 +11,23 @@ namespace Converter.Test.Unit
     public class PurchaseOrderGeneratorTest
     {
         Mock<IPurchaseOrderLineGenerator> moqLineGenerator;
+        string fileData = string.Empty;
         [TestInitialize]
         public void Init()
         {
+            fileData = TestData.GetFileDataSample();
             moqLineGenerator = new Mock<IPurchaseOrderLineGenerator>();
             moqLineGenerator.Setup(m => m.GetOrderLine(It.IsAny<string>(), It.IsAny<string>())).Returns(TestData.GetPurchaseLineOrder);
+        }
+        [TestCleanup]
+        public void Clean()
+        {
+            moqLineGenerator = null;
         }
         [TestMethod]
         public void Unit_test_PurchaseOrderGenerator_with_specified_stringData_generates_purchase_order_without_orderline_successful()
         {
             //given
-            string fileData = TestData.GetFileDataSample();
             string strPurchaseOrder = TestData.GetOrderString();
             var sut = new PurchaseOrderGenerator(moqLineGenerator.Object);
 
@@ -41,7 +47,6 @@ namespace Converter.Test.Unit
         public void Unit_test_PurchaseOrderGenerator_without_destination_stringData_generates_purchase_order_with_default_destination_successful()
         {
             //given
-            string fileData = TestData.GetFileDataSample();
             string strPurchaseOrder = TestData.GetOrderStringWithoutDestination();
             var sut = new PurchaseOrderGenerator(moqLineGenerator.Object);
 

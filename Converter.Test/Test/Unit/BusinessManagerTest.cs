@@ -18,8 +18,9 @@ namespace Converter.test
         public void Unit_test_business_manager_when_provided_with_specified_file_format_converts_2_xml_successfully()
         {
             //given
+            string savedFileName = TestData.GetSavedFileName();
             var moqConverter = new Mock<IFileConverter>();
-            moqConverter.Setup(m => m.Convert(It.IsAny<string>())).Returns(TestData.GetSavedFileName());
+            moqConverter.Setup(m => m.Convert(It.IsAny<string>())).Returns(savedFileName);
             var sut = new FileManager(moqConverter.Object);
 
             //when
@@ -27,7 +28,7 @@ namespace Converter.test
 
             //then
             moqConverter.Verify(v => v.Convert(It.IsAny<string>()), Times.Once);
-            Assert.AreEqual(result, TestData.GetSavedFileName());
+            Assert.AreEqual(result, savedFileName);
         }
     }
 }
