@@ -6,7 +6,8 @@
 
     > please download or clone the repo to your computer
     > Open the solution file 'Converter.Demo.sln' from VisualStudio 2017 
-    > check if input csv file is placed in the bin application folder
+    > copy the below sample input save as data.csv file and place in the Converter application bin folder
+    > place the same csv file into Converter test application bin/debug folder
 
 All set. 
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Converter.Domain;
 using Moq;
 using Converter.Test.Data;
@@ -17,20 +12,19 @@ namespace Converter.Test.Unit
         public void Unit_test_file_converter_when_provided_with_specified_file_format_converts_2_xml_successfully()
         {
             //given
-            var moqFileReader = new Mock<IFileReader>();
-            var moqFileWriter = new Mock<IFileWriter>();
-            string fileNameSample = TestData.GetFileNameSample();
+            var moqFormatter = new Mock<IFormatData>();
+            string SavedFileName = TestData.GetSavedFileName();
+            string FilePath = "./data.csv"; //place the input file into bin/debug folder
             string fileDataSample = TestData.GetFileDataSample();
-            string savedFileName = TestData.GetSavedFileName();
+            var lineOrder = TestData.GetPurchaseOrderList();
 
-            moqFileReader.Setup(m => m.ReadFile(It.Is<string>(n=> n==fileNameSample))).Returns(fileDataSample);
-            moqFileWriter.Setup(m => m.Write(It.Is<string>(d => d == fileDataSample))).Returns(savedFileName);
-            var sut = new FileConverter(moqFileReader.Object, moqFileWriter.Object);
+            moqFormatter.Setup(m => m.ConvertString2Object(It.Is<string>(d => d == fileDataSample))).Returns(lineOrder);
+            var sut = new FileConverter( moqFormatter.Object);
 
             //when
-            var result = sut.Convert(fileNameSample);
+            var result = sut.Convert(FilePath);
             //then
-            Assert.IsTrue(result == savedFileName);
+            Assert.IsTrue(result ==SavedFileName);
         }
     }
 }

@@ -16,8 +16,6 @@ namespace Converter.Config
             container.RegisterType<IPurchaseOrderGenerator, PurchaseOrderGenerator>();
             container.RegisterType<IPurchaseOrderLineGenerator, PurchaseOrderLineGenerator>();
             container.RegisterType<IFormatData, FormatData>();
-            container.RegisterType<IFileWriter, FileWriter>();
-            container.RegisterType<IFileReader, FileReader>();
             container.RegisterType<IFileConverter, FileConverter>();
             return container.Resolve<IFileConverter>();
         }

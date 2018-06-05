@@ -10,16 +10,12 @@ namespace Converter.Test.Integration
         IPurchaseOrderLineGenerator _lineGenerator;
         IPurchaseOrderGenerator _orderGenerator;
         IFormatData _formatter;
-        IFileReader _reader;
-        IFileWriter _writer;
         [TestInitialize]
         public void Init()
         {
             _lineGenerator = new PurchaseOrderLineGenerator();
             _orderGenerator = new PurchaseOrderGenerator(_lineGenerator);
             _formatter = new FormatData(_orderGenerator);
-            _reader = new FileReader();
-            _writer = new FileWriter(_formatter);
         }
         [TestCleanup]
         public void Clean()
@@ -27,8 +23,6 @@ namespace Converter.Test.Integration
             _lineGenerator = null;
             _orderGenerator = null;
             _formatter = null;
-            _reader = null;
-            _writer = null;
         }
         [TestMethod]
         public void Integration_test_convert_specified_file_found_2_xml_successful_returns_saved_file_name()
@@ -36,7 +30,7 @@ namespace Converter.Test.Integration
             //given
             string fileName = TestData.GetFileNameSample();
             string savedFileName =TestData.GetSavedFileName();
-            var converter = new FileConverter(_reader, _writer);
+            var converter = new FileConverter( _formatter);
 
             //when
             var result = converter.Convert(fileName);
@@ -52,7 +46,7 @@ namespace Converter.Test.Integration
         {
             //given
             string fileName = "";
-             var converter = new FileConverter(_reader, _writer);
+             var converter = new FileConverter( _formatter);
 
             //when
             var result = converter.Convert(fileName);

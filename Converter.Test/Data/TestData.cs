@@ -62,5 +62,12 @@ D,PO2008-04,3,GREEN LAMPS,55,
         {
             return new PurchaseOrder { };
         }
+        public static List<PurchaseOrder> GetPurchaseOrderList()
+        {
+            return new List<PurchaseOrder>
+            {
+                 GetPurchaseOrder()
+            };
+        }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace Converter.Domain
+﻿using Converter.Helper;
+using System.IO;
+
+namespace Converter.Domain
 {
     public interface IFileConverter
     {
@@ -6,11 +9,11 @@
     }
     public class FileConverter : IFileConverter
     {
-        private readonly IFileReader _reader;
-        private readonly IFileWriter _writer;
-        public FileConverter(IFileReader reader,IFileWriter writer)
+        private const string saveFilePath = @"PurchaseOrder.xml";
+        private readonly IFormatData _formatData;
+        public FileConverter(IFormatData formatData)
         {
-            _reader = reader;_writer = writer;
+            _formatData = formatData;
         }
         public string Convert(string filepath)
         {
@@ -29,11 +32,13 @@
         }
         string Read(string filepath)
         {
-            return _reader.ReadFile(filepath);
+            return File.ReadAllText(filepath);
         }
-        string Write(string strFileData)
+        string Write(string fileData)
         {
-            return _writer.Write(strFileData);
+            var purhaseOrders = _formatData.ConvertString2Object(fileData);
+            purhaseOrders.Save2xml(saveFilePath);
+            return saveFilePath;
         }
     }
 }
