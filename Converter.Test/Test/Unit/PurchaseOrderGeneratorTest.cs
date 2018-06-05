@@ -10,46 +10,51 @@ namespace Converter.Test.Unit
     [TestClass]
     public class PurchaseOrderGeneratorTest
     {
+        Mock<IPurchaseOrderLineGenerator> moqLineGenerator;
+        [TestInitialize]
+        public void Init()
+        {
+            moqLineGenerator = new Mock<IPurchaseOrderLineGenerator>();
+            moqLineGenerator.Setup(m => m.GetOrderLine(It.IsAny<string>(), It.IsAny<string>())).Returns(TestData.GetPurchaseLineOrder);
+        }
         [TestMethod]
         public void Unit_test_PurchaseOrderGenerator_with_specified_stringData_generates_purchase_order_without_orderline_successful()
         {
             //given
-            string strOrder = TestData.GetOrderString();
-            var moqLineGenerator = new Mock<IPurchaseOrderLineGenerator>();
-            moqLineGenerator.Setup(m => m.GetOrderLine(It.IsAny<string>(), It.IsAny<string>())).Returns(TestData.GetPurchaseLineOrder);
+            string fileData = TestData.GetFileDataSample();
+            string strPurchaseOrder = TestData.GetOrderString();
             var sut = new PurchaseOrderGenerator(moqLineGenerator.Object);
 
             //when
-            var result = sut.GenerateOrder(TestData.GetOrderString(),TestData.GetFileDataSample());
+            var result = sut.GenerateOrder(fileData, strPurchaseOrder);
 
             //then
             Assert.IsInstanceOfType(result, typeof(PurchaseOrder));
             Assert.IsTrue(result.PurchaseOrderLines != null);
-            Assert.IsTrue(result.CustomerPo == strOrder.Split(',')[1]);
-            Assert.IsTrue(result.Supplier != strOrder.Split(',')[2]);
-            Assert.IsTrue(result.Origin == strOrder.Split(',')[3]);
-            Assert.IsTrue(result.Destination == strOrder.Split(',')[4]);
-            Assert.IsTrue(result.CargoReady != strOrder.Split(',')[5]);
+            Assert.IsTrue(result.CustomerPo == strPurchaseOrder.Split(',')[1]);
+            Assert.IsTrue(result.Supplier != strPurchaseOrder.Split(',')[2]);
+            Assert.IsTrue(result.Origin == strPurchaseOrder.Split(',')[3]);
+            Assert.IsTrue(result.Destination == strPurchaseOrder.Split(',')[4]);
+            Assert.IsTrue(result.CargoReady != strPurchaseOrder.Split(',')[5]);
         }
         [TestMethod]
         public void Unit_test_PurchaseOrderGenerator_without_destination_stringData_generates_purchase_order_with_default_destination_successful()
         {
             //given
-            string strOrder = TestData.GetOrderStringWithoutDestination();
-            var moqLineGenerator = new Mock<IPurchaseOrderLineGenerator>();
-            moqLineGenerator.Setup(m => m.GetOrderLine(It.IsAny<string>(), It.IsAny<string>())).Returns(TestData.GetPurchaseLineOrder);
+            string fileData = TestData.GetFileDataSample();
+            string strPurchaseOrder = TestData.GetOrderStringWithoutDestination();
             var sut = new PurchaseOrderGenerator(moqLineGenerator.Object);
 
             //when
-            var result = sut.GenerateOrder(strOrder, TestData.GetFileDataSample());
+            var result = sut.GenerateOrder(fileData,strPurchaseOrder);
 
             //then
             Assert.IsInstanceOfType(result, typeof(PurchaseOrder));
             Assert.IsTrue(result.PurchaseOrderLines != null);
-            Assert.IsTrue(result.CustomerPo == strOrder.Split(',')[1]);
-            Assert.IsTrue(result.Supplier != strOrder.Split(',')[2]);
-            Assert.IsTrue(result.Origin == strOrder.Split(',')[3]);
-            Assert.IsFalse(result.Destination == strOrder.Split(',')[4]);
+            Assert.IsTrue(result.CustomerPo == strPurchaseOrder.Split(',')[1]);
+            Assert.IsTrue(result.Supplier != strPurchaseOrder.Split(',')[2]);
+            Assert.IsTrue(result.Origin == strPurchaseOrder.Split(',')[3]);
+            Assert.IsFalse(result.Destination == strPurchaseOrder.Split(',')[4]);
         }
     }
 }

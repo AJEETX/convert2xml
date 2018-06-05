@@ -67,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="App_Data\data.csv" />
     <None Include="bin\data.csv" />
     <None Include="bin\Debug\data.csv" />
     <None Include="packages.config" />

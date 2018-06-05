@@ -21,7 +21,7 @@ namespace Converter.Test.Unit
             var result = sut.GetOrderLine(fileData, POnumber);
 
             //then
-            Assert.IsInstanceOfType(result, typeof(List<PurchaseOrderLine>));
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<PurchaseOrderLine>));
         }
     }
 }

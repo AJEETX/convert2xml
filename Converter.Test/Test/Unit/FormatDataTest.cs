@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Converter.Domain;
 using Converter.Model;
 using Converter.Test.Data;
@@ -23,7 +24,7 @@ namespace Converter.Test.Unit
             var result = sut.ConvertString2Object(fileData);
 
             //then
-            Assert.IsInstanceOfType(result, typeof(PurchaseOrder));
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<PurchaseOrder>));
         }
     }
 }
