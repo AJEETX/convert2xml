@@ -67,9 +67,7 @@
   <ItemGroup>
     <Compile Include="Data\TestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\Integration\BusinessManagerTest.cs" />
     <Compile Include="Test\Integration\FileConverterTest.cs" />
-    <Compile Include="Test\Unit\BusinessManagerTest.cs" />
     <Compile Include="Test\Unit\FileConverterTest.cs" />
     <Compile Include="Test\Unit\PurchaseOrderLineGeneratorTest.cs" />
     <Compile Include="Test\Unit\PurchaseOrderGeneratorTest.cs" />

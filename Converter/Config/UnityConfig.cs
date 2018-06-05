@@ -10,7 +10,7 @@ namespace Converter.Config
 {
     public class UnityConfig
     {
-        public static IFileManager GetBusinessManager()
+        public static IFileConverter GetConverter()
         {
             var container = new UnityContainer();
             container.RegisterType<IPurchaseOrderGenerator, PurchaseOrderGenerator>();
@@ -19,8 +19,7 @@ namespace Converter.Config
             container.RegisterType<IFileWriter, FileWriter>();
             container.RegisterType<IFileReader, FileReader>();
             container.RegisterType<IFileConverter, FileConverter>();
-            container.RegisterType<IFileManager, FileManager>();
-            return container.Resolve<IFileManager>();
+            return container.Resolve<IFileConverter>();
         }
     }
 }

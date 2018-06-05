@@ -8,7 +8,7 @@ namespace Converter.Domain
         static string filepath = @"./data.csv";
         internal static string Generate()
         {
-            return File.Exists(filepath)? UnityConfig.GetBusinessManager().ConvertDocument(filepath):"Err";
+            return File.Exists(filepath)? UnityConfig.GetConverter().Convert(filepath):"Err";
         }
     }
 }

@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\UnityConfig.cs" />
-    <Compile Include="Domain\FileManager.cs" />
     <Compile Include="Domain\FileConverter.cs" />
     <Compile Include="Domain\FileReader.cs" />
     <Compile Include="Domain\FileWriter.cs" />
