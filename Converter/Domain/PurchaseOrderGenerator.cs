@@ -23,11 +23,22 @@ namespace Converter.Domain
         }
         public PurchaseOrder GenerateOrder(string fileData, string purchaseOrder)
         {
+            if (string.IsNullOrEmpty(fileData) || string.IsNullOrEmpty(purchaseOrder)) return null;
             PurchaseOrder _purchaseOrder = null;
             try
             {
+                _purchaseOrder = CreateOrder(fileData,purchaseOrder);
+            }
+            catch (Exception)
+            {
+                //catch // throw //log // yell ??// issue within purchase order
+            }
+            return _purchaseOrder;
+        }
+        PurchaseOrder CreateOrder(string fileData, string purchaseOrder)
+        {
                 var orderData = purchaseOrder.Split(',');
-                _purchaseOrder = new PurchaseOrder
+                return new PurchaseOrder
                 {
                     CustomerPo = orderData[1],
                     Supplier = supplierData[orderData[2]].Invoke().SupplierCode,
@@ -36,12 +47,6 @@ namespace Converter.Domain
                     CargoReady = DateTime.Parse(orderData[5]).ToString("yyyy-MM-dd"),
                     PurchaseOrderLines = _purchaseOrderLineGenerator.GetOrderLine(fileData, orderData[1])
                 };
-            }
-            catch (Exception)
-            {
-                //catch and move on to next purchase order
-            }
-            return _purchaseOrder;
         }
     }
 }

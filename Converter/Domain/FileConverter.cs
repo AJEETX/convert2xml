@@ -26,6 +26,7 @@ namespace Converter.Domain
             }
             catch (System.Exception ex)
             {
+                //throw // catch //log // yell ??// issue in converting
                 throw ex; // yell //shout //log
             }
             return xmlSave;

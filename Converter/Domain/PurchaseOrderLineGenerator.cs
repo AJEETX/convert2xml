@@ -13,6 +13,7 @@ namespace Converter.Domain
     {
         public IEnumerable<PurchaseOrderLine> GetOrderLine(string fileData, string poNumber)
         {
+            if (string.IsNullOrEmpty(fileData) || string.IsNullOrEmpty(poNumber)) return null;
             IEnumerable<PurchaseOrderLine> purchaseOrderLines = null;
             try
             {
@@ -20,7 +21,7 @@ namespace Converter.Domain
             }
             catch (System.Exception)
             {
-                throw; //yell// issue in lineOrder
+                //catch // throw // log //yell ??// issue in lineOrder
             }
             return purchaseOrderLines;
         }

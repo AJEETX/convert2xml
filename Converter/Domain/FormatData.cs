@@ -1,4 +1,5 @@
 ﻿using Converter.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -19,26 +20,27 @@ namespace Converter.Domain
         }
         public IEnumerable<PurchaseOrder> ConvertString2Object(string fileData)
         {
-            IEnumerable<PurchaseOrder> pos = null;
             if (string.IsNullOrEmpty(fileData)) return null;
-            try
-            {
-                pos = FormatFileData(fileData);
-            }
-            catch (System.Exception)
-            {
-                //catch and continue
-            }
-             return pos;
+            
+                return FormatFileData(fileData);
         }
 
         IEnumerable<PurchaseOrder> FormatFileData(string fileData)
         {
             MatchCollection purchaseOrders = Regex.Matches(fileData, _purchaseOrderPattern);
 
-            foreach (string purchaseOrder in purchaseOrders.Cast<Match>().Select(match => match.Value))
+            foreach (string strPurchaseOrder in purchaseOrders.Cast<Match>().Select(match => match.Value))
             {
-                yield return _orderGenerator.GenerateOrder(fileData, purchaseOrder);
+                PurchaseOrder purchaseOrder = null;
+                try
+                {
+                    purchaseOrder = _orderGenerator.GenerateOrder(fileData, strPurchaseOrder);
+                }
+                catch(Exception)
+                {
+                    //catch // throw //log // yell ??// issue in this purchase order
+                }
+                yield return purchaseOrder;
             }
         }
     }
