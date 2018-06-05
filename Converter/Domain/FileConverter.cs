@@ -5,41 +5,41 @@ namespace Converter.Domain
 {
     public interface IFileConverter
     {
-        string Convert(string filepath);
+        string Convert(string strFilepath);
     }
     public class FileConverter : IFileConverter
     {
-        private const string saveFilePath = @"PurchaseOrder.xml";
+        private const string strSaveFilePath = @"PurchaseOrder.xml";
         private readonly IFormatData _formatData;
         public FileConverter(IFormatData formatData)
         {
             _formatData = formatData;
         }
-        public string Convert(string filepath)
+        public string Convert(string strFilepath)
         {
-            if (string.IsNullOrEmpty(filepath)) return "Err";
-            string xmlSavedFileName = string.Empty;
+            if (string.IsNullOrEmpty(strFilepath)) return "Err";
+            string strXmlSavedFileName = string.Empty;
             try
             {
-                string strFileData = GetStringData(filepath);
-                xmlSavedFileName = Convert2xml(strFileData);
+                string strFileData = GetStringData(strFilepath);
+                strXmlSavedFileName = Convert2xml(strFileData);
             }
             catch (System.Exception ex)
             {
                 //throw // catch //log // yell ??// issue in converting
                 throw ex; // yell //shout //log
             }
-            return xmlSavedFileName;
+            return strXmlSavedFileName;
         }
-        string GetStringData(string filepath)
+        string GetStringData(string strFilepath)
         {
-            return File.ReadAllText(filepath);
+            return File.ReadAllText(strFilepath);
         }
         string Convert2xml(string strFileData)
         {
             var purhaseOrders = _formatData.ConvertString2Object(strFileData); //convert 2 orders collection
-            purhaseOrders.Save2xml(saveFilePath);   // save to file path
-            return saveFilePath;
+            purhaseOrders.Save2xml(strSaveFilePath);   // save to file path
+            return strSaveFilePath;
         }
     }
 }

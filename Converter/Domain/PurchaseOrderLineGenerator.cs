@@ -32,8 +32,17 @@ namespace Converter.Domain
             MatchCollection orders = Regex.Matches(strFileData, _linePattern);
             foreach (string order in orders.Cast<Match>().Select(m => m.Value))
             {
-                var orderline = order.Split(',');
-                yield return new PurchaseOrderLine { LineNumber = orderline[2], ProductDescription = orderline[3], OrderQty = orderline[4] };
+                PurchaseOrderLine purchaseOrderLine = null;
+                try
+                {
+                    var orderline = order.Split(',');
+                    purchaseOrderLine = new PurchaseOrderLine { LineNumber = orderline[2], ProductDescription = orderline[3], OrderQty = orderline[4] };
+                }
+                catch (System.Exception)
+                {
+                    //catch // throw // log // issue in purchase order line;
+                }
+                yield return purchaseOrderLine;
             }
         }
     }
