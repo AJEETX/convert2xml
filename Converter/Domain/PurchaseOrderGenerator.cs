@@ -23,15 +23,25 @@ namespace Converter.Domain
         }
         public PurchaseOrder GenerateOrder(string fileData, string purchaseOrder)
         {
-            var orderData = purchaseOrder.Split(',');
-            return new PurchaseOrder {
-                CustomerPo = orderData[1],
-                Supplier = supplierData[orderData[2]].Invoke().SupplierCode,
-                 Origin=orderData[3],
-                 Destination= string.IsNullOrEmpty(orderData[4])? supplierData[orderData[2]].Invoke().Destination: orderData[4],
-                 CargoReady = DateTime.Parse(orderData[5]).ToString("yyyy-MM-dd"),
-                  PurchaseOrderLines=_purchaseOrderLineGenerator.GetOrderLine(fileData, orderData[1])
-            };
+            PurchaseOrder _purchaseOrder = null;
+            try
+            {
+                var orderData = purchaseOrder.Split(',');
+                _purchaseOrder = new PurchaseOrder
+                {
+                    CustomerPo = orderData[1],
+                    Supplier = supplierData[orderData[2]].Invoke().SupplierCode,
+                    Origin = orderData[3],
+                    Destination = string.IsNullOrEmpty(orderData[4]) ? supplierData[orderData[2]].Invoke().Destination : orderData[4],
+                    CargoReady = DateTime.Parse(orderData[5]).ToString("yyyy-MM-dd"),
+                    PurchaseOrderLines = _purchaseOrderLineGenerator.GetOrderLine(fileData, orderData[1])
+                };
+            }
+            catch (Exception)
+            {
+                //catch and move on to next purchase order
+            }
+            return _purchaseOrder;
         }
     }
 }
