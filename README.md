@@ -40,7 +40,8 @@ D,PO2008-04,3,GREEN LAMPS,55,
 
 Please run the application 
 
-### Application convert to below xml outut 
+#### Application convert to below xml 
+> output in 'Converter' project bin/debug folder
 
 ```
 <PurchaseOrders>
