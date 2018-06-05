@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\data.csv" />
-    <None Include="Data\data.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
