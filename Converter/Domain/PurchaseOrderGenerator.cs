@@ -6,7 +6,7 @@ namespace Converter.Domain
 {
     public interface IPurchaseOrderGenerator
     {
-        PurchaseOrder GenerateOrder(string fileData,string purchaseOrder);
+        PurchaseOrder GenerateOrder(string strFileData, string strPurchaseOrder);
     }
     class PurchaseOrderGenerator : IPurchaseOrderGenerator
     {
@@ -21,13 +21,13 @@ namespace Converter.Domain
             supplierData.Add(SFC01, () => { return new OrderCodeDestination { SupplierCode = "SFC01", Destination = "AUMEL" }; });
             supplierData.Add(YIP01, ()=> { return new OrderCodeDestination { SupplierCode = "YIP-01", Destination = "AUSYD" }; });
         }
-        public PurchaseOrder GenerateOrder(string fileData, string purchaseOrder)
+        public PurchaseOrder GenerateOrder(string strFileData, string strPurchaseOrder)
         {
-            if (string.IsNullOrEmpty(fileData) || string.IsNullOrEmpty(purchaseOrder)) return null;
+            if (string.IsNullOrEmpty(strFileData) || string.IsNullOrEmpty(strPurchaseOrder)) return null;
             PurchaseOrder _purchaseOrder = null;
             try
             {
-                _purchaseOrder = CreateOrder(fileData,purchaseOrder);
+                _purchaseOrder = CreateOrder(strFileData, strPurchaseOrder);
             }
             catch (Exception)
             {
@@ -35,9 +35,9 @@ namespace Converter.Domain
             }
             return _purchaseOrder;
         }
-        PurchaseOrder CreateOrder(string fileData, string purchaseOrder)
+        PurchaseOrder CreateOrder(string strFileData, string strPurchaseOrder)
         {
-                var orderData = purchaseOrder.Split(',');
+                var orderData = strPurchaseOrder.Split(',');
                 return new PurchaseOrder
                 {
                     CustomerPo = orderData[1],
@@ -45,7 +45,7 @@ namespace Converter.Domain
                     Origin = orderData[3],
                     Destination = string.IsNullOrEmpty(orderData[4]) ? supplierData[orderData[2]].Invoke().Destination : orderData[4],
                     CargoReady = DateTime.Parse(orderData[5]).ToString("yyyy-MM-dd"),
-                    PurchaseOrderLines = _purchaseOrderLineGenerator.GetOrderLine(fileData, orderData[1])
+                    PurchaseOrderLines = _purchaseOrderLineGenerator.GetOrderLine(strFileData, orderData[1])
                 };
         }
     }

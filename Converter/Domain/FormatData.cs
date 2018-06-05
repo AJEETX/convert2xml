@@ -8,7 +8,7 @@ namespace Converter.Domain
 {
     public interface IFormatData
     {
-        IEnumerable<PurchaseOrder> ConvertString2Object(string fileData);
+        IEnumerable<PurchaseOrder> ConvertString2Object(string strFileData);
     }
     class FormatData : IFormatData
     {
@@ -18,23 +18,23 @@ namespace Converter.Domain
         {
             _orderGenerator = orderGenerator;
         }
-        public IEnumerable<PurchaseOrder> ConvertString2Object(string fileData)
+        public IEnumerable<PurchaseOrder> ConvertString2Object(string strFileData)
         {
-            if (string.IsNullOrEmpty(fileData)) return null;
+            if (string.IsNullOrEmpty(strFileData)) return null;
             
-                return FormatFileData2PurchaseOrders(fileData);
+                return FormatFileData2PurchaseOrders(strFileData);
         }
 
-        IEnumerable<PurchaseOrder> FormatFileData2PurchaseOrders(string fileData)
+        IEnumerable<PurchaseOrder> FormatFileData2PurchaseOrders(string strFileData)
         {
-            MatchCollection purchaseOrders = Regex.Matches(fileData, _purchaseOrderPattern);
+            MatchCollection purchaseOrders = Regex.Matches(strFileData, _purchaseOrderPattern);
 
             foreach (string strPurchaseOrder in purchaseOrders.Cast<Match>().Select(match => match.Value))
             {
                 PurchaseOrder purchaseOrder = null;
                 try
                 {
-                    purchaseOrder = _orderGenerator.GenerateOrder(fileData, strPurchaseOrder);
+                    purchaseOrder = _orderGenerator.GenerateOrder(strFileData, strPurchaseOrder);
                 }
                 catch(Exception)
                 {

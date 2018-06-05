@@ -7,17 +7,17 @@ namespace Converter.Domain
 {
     public interface IPurchaseOrderLineGenerator
     {
-        IEnumerable<PurchaseOrderLine> GetOrderLine(string fileData, string poNumner);
+        IEnumerable<PurchaseOrderLine> GetOrderLine(string strFileData, string strPOnumber);
     }
     class PurchaseOrderLineGenerator : IPurchaseOrderLineGenerator
     {
-        public IEnumerable<PurchaseOrderLine> GetOrderLine(string fileData, string poNumber)
+        public IEnumerable<PurchaseOrderLine> GetOrderLine(string strFileData, string strPOnumber)
         {
-            if (string.IsNullOrEmpty(fileData) || string.IsNullOrEmpty(poNumber)) return null;
+            if (string.IsNullOrEmpty(strFileData) || string.IsNullOrEmpty(strPOnumber)) return null;
             IEnumerable<PurchaseOrderLine> purchaseOrderLines = null;
             try
             {
-                purchaseOrderLines = CreateOrderLine(fileData, poNumber);
+                purchaseOrderLines = CreateOrderLine(strFileData, strPOnumber);
             }
             catch (System.Exception)
             {
@@ -26,10 +26,10 @@ namespace Converter.Domain
             return purchaseOrderLines;
         }
 
-        IEnumerable<PurchaseOrderLine> CreateOrderLine(string fileData, string poNumber)
+        IEnumerable<PurchaseOrderLine> CreateOrderLine(string strFileData, string strPOnumber)
         {
-            string _linePattern = @"(?<el>D\," + poNumber + ".*)";
-            MatchCollection orders = Regex.Matches(fileData, _linePattern);
+            string _linePattern = @"(?<el>D\," + strPOnumber + ".*)";
+            MatchCollection orders = Regex.Matches(strFileData, _linePattern);
             foreach (string order in orders.Cast<Match>().Select(m => m.Value))
             {
                 var orderline = order.Split(',');
