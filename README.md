@@ -1,19 +1,17 @@
 # convert custom data to xml
 
-> a simple nodejs based system . converts custom data to xml format
+> a simple console based system . converts custom data to xml format
 
 > Wiring up the setup:
 
-    please download or clone the repo to your computer
-    Open VisualStudioCode, open the Terminal to install dependencies, if missing 
-    
-    below is the set of commnds
+    > please download or clone the repo to your computer
+    > Open the solution file 'Converter.Demo.sln' from VisualStudio 2017 
+    > check if input csv file is placed in the bin application folder
 
-    > npm init
-    > npm install 
-    > nodemon run
+All set. 
 
-    Open the browser "localhost:5050"
+Please run the application 
+
 
     ```
     happy coding
