@@ -22,10 +22,10 @@ namespace Converter.Domain
         {
             if (string.IsNullOrEmpty(fileData)) return null;
             
-                return FormatFileData(fileData);
+                return FormatFileData2PurchaseOrders(fileData);
         }
 
-        IEnumerable<PurchaseOrder> FormatFileData(string fileData)
+        IEnumerable<PurchaseOrder> FormatFileData2PurchaseOrders(string fileData)
         {
             MatchCollection purchaseOrders = Regex.Matches(fileData, _purchaseOrderPattern);
 

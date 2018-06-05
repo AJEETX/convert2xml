@@ -18,27 +18,27 @@ namespace Converter.Domain
         public string Convert(string filepath)
         {
             if (string.IsNullOrEmpty(filepath)) return "Err";
-            string xmlSave = string.Empty;
+            string xmlSavedFileName = string.Empty;
             try
             {
-                string strFileData = Read(filepath);
-                xmlSave= Write(strFileData);
+                string strFileData = GetStringData(filepath);
+                xmlSavedFileName = Convert2xml(strFileData);
             }
             catch (System.Exception ex)
             {
                 //throw // catch //log // yell ??// issue in converting
                 throw ex; // yell //shout //log
             }
-            return xmlSave;
+            return xmlSavedFileName;
         }
-        string Read(string filepath)
+        string GetStringData(string filepath)
         {
             return File.ReadAllText(filepath);
         }
-        string Write(string fileData)
+        string Convert2xml(string strFileData)
         {
-            var purhaseOrders = _formatData.ConvertString2Object(fileData);
-            purhaseOrders.Save2xml(saveFilePath);
+            var purhaseOrders = _formatData.ConvertString2Object(strFileData); //convert 2 orders collection
+            purhaseOrders.Save2xml(saveFilePath);   // save to file path
             return saveFilePath;
         }
     }
